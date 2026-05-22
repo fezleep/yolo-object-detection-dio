@@ -163,12 +163,3 @@ Ele roda inferência com um modelo pré-treinado, salva o resultado visual e dei
 
 Para o objetivo do desafio, preferi manter a entrega honesta: demonstrar a detecção funcionando e documentar o próximo passo sem inventar métricas ou resultados de treinamento que não foram feitos.
 
-## Próximos passos
-
-- montar uma base própria com pelo menos duas classes;
-- rotular as imagens com Labelme, Roboflow ou ferramenta parecida;
-- converter as anotações para o formato YOLO, se necessário;
-- treinar o modelo no Colab usando `data.yaml`;
-- comparar métricas como precision, recall e mAP;
-- testar outras versões ou tamanhos de modelo YOLO;
-- adicionar inferência em vídeo.
