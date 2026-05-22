@@ -1,111 +1,54 @@
 # YOLO Object Detection DIO
 
-Projeto de detecção de objetos com YOLOv8, criado para entrega na DIO. A proposta é demonstrar um fluxo funcional de visão computacional usando Google Colab, modelo pré-treinado, inferência em imagem e documentação do caminho para transfer learning com classes customizadas.
+Projeto simples de detecção de objetos com YOLO, feito para o desafio da DIO.
 
-O projeto não afirma que um modelo foi treinado do zero. Ele usa YOLOv8 pré-treinado para a demonstração prática e explica como preparar uma base anotada para treinar novas classes.
+A ideia aqui foi montar um fluxo funcional: rodar inferência com um modelo pré-treinado, gerar uma imagem com as detecções e deixar documentado o caminho para evoluir isso para transfer learning com uma base própria.
+
+Não treinei um modelo do zero neste projeto. A demonstração usa YOLO com Ultralytics e pesos pré-treinados, o que já é suficiente para mostrar bem o funcionamento da detecção de objetos.
+
+## Descrição
+
+Este repositório organiza um exemplo de visão computacional usando YOLOv8. O modelo recebe uma imagem, identifica objetos conhecidos e devolve o resultado com bounding boxes, nome da classe e nível de confiança.
+
+O projeto foi pensado para ser fácil de rodar no Google Colab, mas também tem um script local em Python para testar imagens na máquina.
 
 ## Objetivo
 
-Construir um projeto completo e organizado para:
+O objetivo principal é demonstrar detecção de objetos de forma prática e documentada.
 
-- executar detecção de objetos com YOLOv8;
-- usar um modelo pré-treinado da biblioteca Ultralytics;
-- salvar uma imagem final com bounding boxes;
-- documentar como criar uma base de dados anotada;
-- explicar como aplicar transfer learning com pelo menos duas classes detectáveis.
+Também deixei o fluxo preparado para servir como base de um treinamento futuro por transfer learning, usando um dataset customizado no formato YOLO.
 
-As classes usadas como referência no projeto incluem `person`, `car`, `dog` e `bicycle`, que fazem parte do COCO Dataset e já são reconhecidas pelo modelo pré-treinado.
+## O que foi feito
 
-## O que é YOLO
+- criação de um notebook para execução no Google Colab;
+- uso do modelo `yolov8n.pt` da Ultralytics;
+- inferência em imagem com detecção de objetos;
+- geração de resultado visual com bounding boxes;
+- script local para rodar a detecção em imagens da pasta `images/input`;
+- organização básica de pastas para imagens, dataset, código e documentação;
+- documentação do caminho para criar uma base customizada e treinar por transfer learning.
 
-YOLO significa You Only Look Once. É uma família de modelos de visão computacional usada para detectar objetos em imagens e vídeos.
+## Tecnologias
 
-A ideia principal é analisar a imagem em uma única passagem pela rede neural e retornar, ao mesmo tempo:
+- Python
+- Google Colab
+- YOLOv8
+- Ultralytics
+- OpenCV
+- Matplotlib
 
-- quais objetos aparecem na imagem;
-- onde eles estão;
-- qual a confiança da predição.
-
-Neste projeto foi usado o YOLOv8, por ser simples de instalar, bem documentado e fácil de executar no Google Colab.
-
-## Classificação, detecção e segmentação
-
-Classificação responde qual é o principal objeto ou categoria de uma imagem. Por exemplo: "esta imagem contém um cachorro".
-
-Detecção de objetos identifica vários objetos e informa a posição de cada um por meio de caixas delimitadoras. Por exemplo: "há uma pessoa à esquerda, um carro ao fundo e uma bicicleta no centro".
-
-Segmentação vai além da caixa. Ela marca os pixels que pertencem a cada objeto, criando uma máscara mais precisa.
-
-Este projeto trabalha com detecção de objetos.
-
-## O que é bounding box
-
-Bounding box é a caixa desenhada ao redor de um objeto detectado. Ela indica a localização aproximada do objeto dentro da imagem.
-
-Em uma saída típica de YOLO, cada bounding box vem acompanhada de:
-
-- nome da classe;
-- confiança da detecção;
-- coordenadas da caixa.
-
-## O que é Labelme
-
-Labelme é uma ferramenta usada para rotular imagens. Com ela, é possível desenhar caixas ou polígonos ao redor dos objetos e salvar as anotações.
-
-Essas anotações podem ser convertidas para o formato YOLO e usadas no treinamento de um modelo customizado.
-
-## O que é COCO Dataset
-
-COCO é uma base pública muito usada em visão computacional. Ela contém imagens anotadas com várias classes do mundo real, como pessoas, carros, cachorros e bicicletas.
-
-O modelo `yolov8n.pt` usado neste projeto já foi treinado com classes do COCO. Por isso ele consegue detectar vários objetos sem a necessidade de treinamento adicional.
-
-## Como funciona transfer learning
-
-Transfer learning é o reaproveitamento de um modelo já treinado em uma grande base de dados para resolver um novo problema.
-
-Em vez de começar do zero, usamos pesos pré-treinados como ponto de partida. Depois, treinamos o modelo com uma base menor e específica, por exemplo:
-
-- `dog`
-- `bicycle`
-
-Esse processo costuma reduzir o tempo de treinamento e melhorar os resultados quando a base customizada não é muito grande.
-
-## Estrutura do projeto
-
-```text
-yolo-object-detection-dio/
-├── README.md
-├── requirements.txt
-├── .gitignore
-├── notebooks/
-│   └── yolo_object_detection_colab.ipynb
-├── src/
-│   └── detect.py
-├── images/
-│   ├── input/
-│   ├── output/
-│   └── README.md
-├── dataset/
-│   └── README.md
-└── docs/
-    └── entrega_dio.md
-```
-
-## Como executar no Google Colab
+## Como rodar no Colab
 
 1. Abra o arquivo `notebooks/yolo_object_detection_colab.ipynb` no Google Colab.
 2. Execute as células em ordem.
-3. O notebook instala o Ultralytics, carrega o modelo `yolov8n.pt`, baixa uma imagem de exemplo e executa a inferência.
-4. A imagem final com bounding boxes é salva em:
+3. O notebook instala a biblioteca `ultralytics`.
+4. O modelo `yolov8n.pt` é carregado.
+5. A inferência é executada em uma imagem de exemplo.
+6. O resultado é exibido no próprio notebook e salvo em `images/output/`.
 
-```text
-images/output/yolo_result.jpg
-```
+O Colab é o caminho mais simples para testar o projeto, principalmente porque evita configuração local de ambiente.
 
-O notebook também mostra o resultado visual dentro do próprio Colab.
-
-## Como executar localmente
+## Como rodar localmente
 
 Crie um ambiente virtual:
 
@@ -125,54 +68,61 @@ Instale as dependências:
 pip install -r requirements.txt
 ```
 
-Coloque uma imagem em:
+Coloque uma imagem dentro da pasta:
 
 ```text
 images/input/
 ```
 
-Execute:
+Execute o script:
 
 ```bash
 python src/detect.py
 ```
 
-O resultado será salvo em:
+As imagens processadas são salvas em:
 
 ```text
 images/output/
 ```
 
-## Resultados esperados
+## Resultado
 
-Ao executar o notebook ou o script local, o modelo deve gerar uma imagem com caixas ao redor dos objetos detectados.
+Abaixo está um exemplo visual do resultado da detecção:
 
-Exemplo de arquivo esperado:
+![resultado da detecção](images/results/yolo-detection-result.png)
+
+O resultado pode variar conforme a imagem usada, a iluminação, a qualidade da foto e as classes que o modelo pré-treinado já conhece.
+
+Neste projeto, o foco é demonstrar o fluxo de inferência e a organização para uma possível customização futura.
+
+## Estrutura
 
 ```text
-images/output/yolo_result.jpg
+yolo-object-detection-dio/
+├── README.md
+├── requirements.txt
+├── notebooks/
+│   └── yolo_object_detection_colab.ipynb
+├── src/
+│   └── detect.py
+├── images/
+│   ├── input/
+│   ├── output/
+│   ├── results/
+│   │   └── yolo-detection-result.png
+│   └── README.md
+├── dataset/
+│   └── README.md
+└── docs/
+    └── entrega_dio.md
 ```
 
-ou, no script local:
+## Observações sobre transfer learning
 
-```text
-images/output/nome_da_imagem_detected.jpg
-```
+O projeto documenta o caminho para transfer learning, mas não apresenta um treinamento customizado como se ele tivesse sido executado.
 
-## Prints e imagens de resultado
-
-Para gerar prints para a entrega:
-
-1. execute todas as células do notebook no Colab;
-2. abra a imagem gerada em `images/output/yolo_result.jpg`;
-3. tire um print da célula de visualização do resultado;
-4. opcionalmente, salve também um print da execução mostrando o caminho do arquivo gerado.
-
-Como o resultado depende da imagem usada e da confiança do modelo, este repositório não inventa métricas ou resultados fixos.
-
-## Dataset customizado
-
-Para treinar com classes próprias, a base precisa estar no formato YOLO:
+Para treinar um modelo com classes próprias, seria necessário preparar uma base anotada no formato YOLO, com imagens e labels separados em treino e validação:
 
 ```text
 dataset/
@@ -185,9 +135,7 @@ dataset/
 └── data.yaml
 ```
 
-O arquivo `data.yaml` informa onde estão as imagens e quais são as classes.
-
-Exemplo:
+Um exemplo simples de `data.yaml`:
 
 ```yaml
 path: /content/yolo-object-detection-dio/dataset
@@ -199,44 +147,28 @@ names:
   1: bicycle
 ```
 
-Com a base pronta, o treinamento por transfer learning pode ser iniciado com:
+Com a base pronta, o treinamento por transfer learning poderia ser iniciado assim:
 
 ```bash
 yolo detect train model=yolov8n.pt data=dataset/data.yaml epochs=30 imgsz=640
 ```
 
-## Aprendizados
-
-Este projeto reforça conceitos importantes de visão computacional:
-
-- diferença entre classificação, detecção e segmentação;
-- uso de modelos YOLO pré-treinados;
-- inferência em imagens;
-- interpretação de bounding boxes;
-- organização de datasets para detecção;
-- ideia prática de transfer learning.
-
-## Melhorias futuras
-
-- adicionar uma base própria com duas classes reais;
-- treinar o modelo no Colab com `data.yaml`;
-- comparar métricas como precision, recall e mAP;
-- testar diferentes versões do YOLOv8;
-- incluir inferência em vídeo.
+Nesse caso, o modelo pré-treinado seria usado como ponto de partida. Isso costuma ser mais viável do que começar do zero, principalmente quando a base customizada ainda é pequena.
 
 ## Conclusão
 
-O projeto demonstra um fluxo funcional de detecção de objetos com YOLOv8 e documenta o caminho para criação de uma base anotada e treinamento por transfer learning.
+Este projeto mostra um fluxo básico, mas completo, de detecção de objetos com YOLO e Ultralytics.
 
-Ele está pronto para ser executado no Google Colab, permite teste local com imagens próprias e mantém a documentação clara sobre o que foi implementado.
+Ele roda inferência com um modelo pré-treinado, salva o resultado visual e deixa claro como o mesmo projeto poderia evoluir para um treinamento customizado com transfer learning.
 
-## Comandos git
+Para o objetivo do desafio, preferi manter a entrega honesta: demonstrar a detecção funcionando e documentar o próximo passo sem inventar métricas ou resultados de treinamento que não foram feitos.
 
-```bash
-git init
-git add .
-git commit -m "feat: add yolo object detection project"
-git branch -M main
-git remote add origin https://github.com/fezleep/yolo-object-detection-dio.git
-git push -u origin main
-```
+## Próximos passos
+
+- montar uma base própria com pelo menos duas classes;
+- rotular as imagens com Labelme, Roboflow ou ferramenta parecida;
+- converter as anotações para o formato YOLO, se necessário;
+- treinar o modelo no Colab usando `data.yaml`;
+- comparar métricas como precision, recall e mAP;
+- testar outras versões ou tamanhos de modelo YOLO;
+- adicionar inferência em vídeo.
